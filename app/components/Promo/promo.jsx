@@ -7,7 +7,7 @@ export const Promo = () => {
         <p className={Styles["promo__description"]}>
           Скидка на все курсы Яндекс Практикума для пользователей нашего сайта!
         </p>
-        <button className={`${Styles["promo__button"]} button`}>Получить код</button>
+        <button className={Styles.promoButton}>Получить код</button>
       </div>
       <img
         src="/images/promo-illustration.svg"
