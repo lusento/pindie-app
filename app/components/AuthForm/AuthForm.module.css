@@ -88,3 +88,7 @@
   opacity: .5;
   pointer-events: none;
 }
+
+.form__message {
+  margin-bottom: 20px;
+}

@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Rubic One";
+  src: url("/public/fonts/rubic-one.woff");
+}
+
 .footer {
     background-color: black;
     border-top: 4px solid white;
@@ -28,8 +33,9 @@
   
   .footer .button .social-list__link,
 .footer .button {
+  font-family: "Rubic One", sans-serif;
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 500;
     aspect-ratio: 1 / 1;
     display: flex;
     justify-content: center;

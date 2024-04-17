@@ -1,9 +1,19 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Styles from "./Promo.module.css"
 
 export const Promo = () => {
   const [codeIsVisible, setCodeIsVisible] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    if (codeIsVisible) {
+      timer = setTimeout(() => {
+        setCodeIsVisible(false);
+      }, 5000);
+    }
+    return () => clearTimeout(timer);
+  }, [codeIsVisible]);
 
   const handleButtonClick = () => {
     setCodeIsVisible(true);
