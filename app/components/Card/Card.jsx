@@ -1,9 +1,8 @@
 import Styles from "./Card.module.css";
-
 export const Card = (props) => {
   return (
     <article className={Styles["card"]}>
-      <img src={props.image} alt="" className={Styles["card__image"]} />
+      <img src={props.image} className={Styles["card__image"]} />
       <div className={Styles["card__content-block"]}>
         <h3 className={Styles["card__title"]}>{props.title}</h3>
         <p className={Styles["card__description"]}>{props.description}</p>

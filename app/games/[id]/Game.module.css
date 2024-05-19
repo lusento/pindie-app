@@ -1,5 +1,11 @@
+@font-face {
+  font-family: "Rubic One";
+  src: url("/public/fonts/rubic-one.woff");
+}
 .game {
   padding: 72px 96px;
+  display: flex;
+  align-items: center;
 }
 
 .game__iframe {
@@ -38,6 +44,8 @@
 }
 
 .about__content {
+  font-family: "Rubic One", sans-serif;
+  font-weight: 100;
   border-right: 4px solid black;
   display: flex;
   flex-direction: column;
@@ -53,6 +61,7 @@
 }
 
 .about__vote {
+  font-family: "Rubic One", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -61,10 +70,32 @@
   letter-spacing: 6%;
 }
 
+.dog_image {
+  order: 1;
+}
+
+.not__found__game {
+  font-family: "Rubic One", sans-serif;
+  order: 2;
+  text-align: center;
+  font-size: 45px;
+  font-weight: 500;
+  flex-direction: column;
+  width: 500px;
+  margin: auto;
+  margin-left: 10%;
+}
+
+.Ball {
+  order: 3;
+  margin-right: 75px;
+}
+
 .about__vote-button:disabled {
   opacity: 0.5;
   pointer-events: none;
 }
+ 
 
 @media (width <= 1200px) {
   .game {

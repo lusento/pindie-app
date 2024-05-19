@@ -1,59 +1,83 @@
-"use client";
+"use client"
 import Styles from "./AuthForm.module.css";
 import { useState, useEffect } from "react";
 import { endpoints } from "@/app/api/config";
-import { authorize } from "@/app/api/api-utils";
-import { isResponseOk } from "@/app/api/api-utils";
+import { isResponseOk, getMe, authorize } from "@/app/api/api-utils";
 import { useStore } from "@/app/store/app-store";
 
 export const AuthForm = (props) => {
   const authContext = useStore();
   const [authData, setAuthData] = useState({ identifier: "", password: "" });
   const [message, setMessage] = useState({ status: null, text: null });
+
   const handleInput = (e) => {
-    setAuthData({ ...authData, [e.target.name]: e.target.value });
+    const { name, value } = e.target; // Деструктуризация объекта event для получения имени и значения поля
+    console.log(e);
+    console.log(`${e.target.name}, ${e.target.value}`);
+    setAuthData((prevAuthData) => ({
+      ...prevAuthData, // Копирование предыдущего состояния
+      [name]: value, // Обновление значения поля, соответствующего имени поля ввода
+    }));
   };
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const userData = await authorize(endpoints.auth, authData);
-    if (isResponseOk(userData)) {
-      authContext.login(userData.user, userData.jwt);
-      setMessage({ status: "success", text: "Вы авторизовались!" });
-    } else {
-      setMessage({ status: "error", text: "Неверные почта или пароль" });
-    }
-  };
+
+  const handleReset = () => {
+  setAuthData({ identifier: "", password: "" }); // Сброс состояния к начальным значениям
+};
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const userData = await authorize(endpoints.auth, authData);
+  if(isResponseOk(userData)) {
+    authContext.login(userData.user, userData.jwt); // login из контекста
+    setMessage({ status: "success", text: "Вы авторизовались!" });
+  } else {
+    setMessage({ status: "error", text: "Неверные почта или пароль" });
+  }
+};
+
+useEffect(() => {
+  let timer; 
+  if(authContext.user) { // Данные о user из контекста
+    timer = setTimeout(() => {
+      setMessage({ status: null, text: null});
+      props.close();
+    }, 1000);
+  }
+  return () => clearTimeout(timer);
+}, [authContext.user]); // Данные о user из контекста
+
   useEffect(() => {
-    let timer;
-    if (authContext.user) {
-      timer = setTimeout(() => {
-        setMessage({ status: null, text: null });
-        props.close();
-      }, 1000);
+    if (authContext.user) { // Проверяем, что userData содержит данные пользователя
+      console.log("Запрос авторизации...");
+      authorize(endpoints.auth, { identifier: "aski@example.com", password: "ilovehtml" })
+        .then((res) => console.log(res))
+        .catch((error) => console.error(error));
     }
-    return () => clearTimeout(timer);
-  }, [authContext.user]);
+  }, [authContext.user]); // Зависимость от userData
+
   return (
-    <form onSubmit={handleSubmit} className={Styles["form"]}>
+    <form onSubmit={handleSubmit} onReset={handleReset} className={Styles["form"]}>
       <h2 className={Styles["form__title"]}>Авторизация</h2>
       <div className={Styles["form__fields"]}>
         <label className={Styles["form__field"]}>
           <span className={Styles["form__field-title"]}>Email</span>
           <input
-            onInput={handleInput}
             className={Styles["form__field-input"]}
-            name="identifier"
             type="email"
-            placeholder="hello@world.com"
+            name="identifier"
+            value={authData.identifier}
+            onChange={handleInput}
+            placeholder="example@mail.com"
           />
         </label>
         <label className={Styles["form__field"]}>
           <span className={Styles["form__field-title"]}>Пароль</span>
           <input
-            onInput={handleInput}
             className={Styles["form__field-input"]}
             type="password"
             name="password"
+            value={authData.password}
+            onChange={handleInput}
             placeholder="***********"
           />
         </label>
