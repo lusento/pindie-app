@@ -35,6 +35,10 @@
   font-size: 22px;
 }
 
+.form__message {
+  margin-bottom: 20px;
+}
+
 .form__actions {
   display: flex;
   justify-content: center;
@@ -87,8 +91,4 @@
 .form__submit:disabled {
   opacity: .5;
   pointer-events: none;
-}
-
-.form__message {
-  margin-bottom: 20px;
 }

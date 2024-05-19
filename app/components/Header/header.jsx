@@ -9,14 +9,13 @@ import { AuthForm } from "../AuthForm/AuthForm";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { useStore } from "@/app/store/app-store";
 
 export const Header = () => {
-  // Сохраняем в authContext хук-хранилище
-  const authContext = useStore();
-  
   const [popupIsOpened, setPopupIsOpened] = useState(false);
 
+  const authContext = useStore();
 
   const openPopup = () => {
     setPopupIsOpened(true);
@@ -28,7 +27,7 @@ export const Header = () => {
   const pathname = usePathname();
 
   const handleLogout = () => {
-    authContext.logout(); // Метод logout из контекста
+    authContext.logout();
   };
   return (
     <header className={Styles["header"]}>
@@ -88,7 +87,7 @@ export const Header = () => {
                 pathname === "/runners" && Styles["menu__link_active"]
               }`}
             >
-              Ранеры
+              Раннеры
             </Link>
           </li>
           <li className={Styles["menu__item"]}>
@@ -113,7 +112,6 @@ export const Header = () => {
           </li>
         </ul>
         <div className={Styles["auth"]}>
-          {/* Определяем, авторизован ли пользователь */}
           {authContext.isAuth ? (
             <button className={Styles["auth__button"]} onClick={handleLogout}>
               Выйти
@@ -127,7 +125,7 @@ export const Header = () => {
       </nav>
       <Overlay isOpened={popupIsOpened} close={closePopup} />
       <Popup isOpened={popupIsOpened} close={closePopup}>
-        <AuthForm close={closePopup} /> {/*= было: setAuth={setIsAuthorized}*/}
+        <AuthForm close={closePopup} />
       </Popup>
     </header>
   );
