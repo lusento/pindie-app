@@ -1,6 +1,6 @@
 import { getNormalizedGamesDataByCategory } from "./api/api-utils";
-import { Banner } from "./components/Banner/banner";
-import { Promo } from "./components/Promo/promo";
+import { Banner } from "./components/Banner/Banner";
+import { Promo } from "./components/Promo/Promo";
 import { endpoints } from "./api/config";
 import { CardsListSection } from "./components/CardsListSection/CardsListSection";
 import { CardsSlider } from "./components/CardsListSection/CardSlider";
