@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://backend-kanteyki.nomoredomainswork.ru/api'
+export const BASE_URL = 'https://backend-kanteyki.nomoredomainswork.ru/api'
 
 export const endpoints = {
     games: `${BASE_URL}/games`,
